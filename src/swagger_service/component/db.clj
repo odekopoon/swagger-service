@@ -11,7 +11,7 @@
 
 (defn authenticate [user db]
   (boolean
-   (when-let [db-user (-> user (get-user db) first)]
+   (when-let [db-user (-> user (get-user-pass db) first)]
      (password/check (:pass user) (:pass db-user)))))
 
 (defrecord DbComponent [connection]

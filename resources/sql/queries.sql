@@ -4,9 +4,14 @@ INSERT INTO users
 (id, first_name, last_name, email, pass)
 VALUES (:id, :first_name, :last_name, :email, :pass)
 
+-- name: get-user-pass
+-- retrieve a user password given the id.
+SELECT id, pass FROM users
+WHERE id = :id
+
 -- name: get-user
 -- retrieve a user given the id.
-SELECT * FROM users
+SELECT id, first_name, last_name, email FROM users
 WHERE id = :id
 
 -- name: get-users

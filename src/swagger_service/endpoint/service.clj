@@ -27,16 +27,16 @@
                     (ok (db/get-users {} (:db config))))
 
               (GET* "/user/:id"   []
-                    :return       User
+                    :return      (s/maybe User)
                     :path-params [id :- String]
                     :summary      "returns the user with a given id"
-                    (ok (db/get-users {:id id} (:db config))))
+                    (ok (-> (db/get-user {:id id} (:db config)) first)))
 
               (POST* "/authenticate" []
                      :return      Boolean
-                     :body-params [user :- User]
+                     :body-params [id :- String, pass :- String]
                      :summary     "authenticates the user using the id and pass."
-                     (ok (db/authenticate user (:db config))))
+                     (ok (db/authenticate {:id id, :pass pass} (:db config))))
 
               (POST* "/user"      []
                      :return      Long
